@@ -32,23 +32,44 @@ class SinglyLinkedList {
     listLength() {
         // Returns the length of the list
         // Implement in O(n) and in O(1) time complexity
+        let length = 0;
+        let current = this.head;
+        while (current) {
+            length++;
+            current = current.next;
+        }
+
+        return length;
     }
 
     sumOfNodes() {
         // Returns the sum of the values of all the nodes
+        let total = 0;
+        let current = this.head;
+        while (current) {
+            total += current.value;
+            current = current.next;
+        }
 
+        return total;
         // Write your hypothesis on the time complexity of this method here
     }
 
     averageValue() {
         // Returns the average value of all the nodes
-
+        return this.sumOfNodes() / this.listLength();
         // Write your hypothesis on the time complexity of this method here
     }
 
     findNthNode(n) {
         // Returns the node at the nth index from the head
+        let current = this.head;
 
+        for (let i = 0; i < n && current !== null; i++) {
+            current = current.next;
+        }
+
+        return current;
         // Write your hypothesis on the time complexity of this method here
     }
 
@@ -56,18 +77,48 @@ class SinglyLinkedList {
         // Returns the middle node
         // Implement this as a singly linked list then as a doubly linked list
             // How do the implementation for singly and doubly vary if at all?
+        let mid = Math.floor((this.listLength() - 1) / 2);
 
+        return this.findNthNode(mid);
         // Write your hypothesis on the time complexity of this method here
     }
 
     reverse() {
         // Returns a new reversed version of the linked list
+        let reversed = new SinglyLinkedList;
 
+        let current = this.head;
+        while (current) {
+            let node = new SinglyLinkedNode(current.value);
+            node.next = reversed.head;
+            reversed.head = node;
+
+            current = current.next;
+        }
+
+        return reversed;
+
+
+        
         // Write your hypothesis on the time complexity of this method here
     }
 
     reverseInPlace() {
         // Reverses the linked list in-place
+        let current = this.head;
+        let prev = null;
+        let next = null;
+
+        while (current) {
+            next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+        }
+
+        this.head = prev;
+
+        return this;
 
         // Write your hypothesis on the time complexity of this method here
     }
