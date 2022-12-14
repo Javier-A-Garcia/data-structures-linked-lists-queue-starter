@@ -158,18 +158,51 @@ class DoublyLinkedList {
         // Returns the middle node
         // Implement this as a singly linked list then as a doubly linked list
             // How do the implementation for singly and doubly vary if at all?
+        // if (!this.head) return;
+        let pointer = this.head;
+        let wall = this.tail;
 
+        while (pointer !== wall && pointer.next !== wall) {
+            pointer = pointer.next;
+            wall = wall.prev;
+        }
+
+        return pointer;
         // Write your hypothesis on the time complexity of this method here
     }
 
     reverse() {
         // Returns a new reversed version of the linked list
+        let reversed = new DoublyLinkedList();
+        let current = this.tail;
 
+        while(current) {
+            reversed.addToTail(current.value);
+            current = current.prev;
+        }
+
+        return reversed;
         // Write your hypothesis on the time complexity of this method here
     }
 
     reverseInPlace() {
         // Reverses the linked list in-place
+
+        let current = this.tail;
+
+        while (current) {
+            let next = current.next;
+
+            current.next = current.prev;
+            current.prev = next;
+            current = current.next;
+        }
+
+        let newTail = this.head;
+        this.head = this.tail;
+        this.tail = newTail;
+
+        return this;
 
         // Write your hypothesis on the time complexity of this method here
     }
